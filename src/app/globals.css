@@ -72,3 +72,54 @@ input[type='range']:focus {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
 }
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+/* ── Reusable animation classes ── */
+.animate-fade-in {
+  animation: fadeIn 0.4s ease both;
+}
+.animate-slide-up {
+  animation: slideUp 0.5s ease both;
+}
+.animate-scale-in {
+  animation: scaleIn 0.3s ease both;
+}
+
+/* Stagger children */
+.stagger-children > * {
+  animation: slideUp 0.5s ease both;
+}
+.stagger-children > *:nth-child(1) { animation-delay: 0ms; }
+.stagger-children > *:nth-child(2) { animation-delay: 80ms; }
+.stagger-children > *:nth-child(3) { animation-delay: 160ms; }
+.stagger-children > *:nth-child(4) { animation-delay: 240ms; }
+
+/* Hover lift effect */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+}
+
+/* Card hover — subtle border glow */
+.card-glow {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.card-glow:hover {
+  border-color: var(--color-pine);
+  box-shadow: 0 0 0 1px var(--color-pine/20);
+}
+
+/* Stat counter entrance */
+.stat-entrance {
+  animation: scaleIn 0.4s ease both;
+}
