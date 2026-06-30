@@ -2,76 +2,65 @@ import type { Metadata } from 'next';
 import KalkulatorOgrevanja from '@/components/KalkulatorOgrevanja';
 
 export const metadata: Metadata = {
-  title: 'Toplotna črpalka ali plinski kotel - Kalkulator | Energijski Prihranki',
+  title: 'Kalkulator ogrevanja — TČ ali plin | Energijski Prihranki',
   description:
-    'Primerjajte letne stroške ogrevanja s toplotno črpalko in plinskim kotlom. Upošteva velikost hiše, izolacijo, cene energentov in Eko sklad subvencije.',
+    'Primerjajte letne stroške ogrevanja s toplotno črpalko in plinskim kotlom po slovenskih cenah. Upošteva subvencije Eko sklada.',
 };
 
 export default function KalkulatorPage() {
   return (
-    <div className="max-w-4xl mx-auto px-4 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
-          Toplotna črpalka ali plinski kotel?
+    <div className="max-w-5xl mx-auto px-6 py-12">
+      {/* ── Header ── */}
+      <div className="mb-10">
+        <div className="inline-flex items-center gap-2 bg-surface px-3 py-1.5 rounded-full text-xs font-medium text-muted mb-4">
+          <span className="w-1.5 h-1.5 rounded-full bg-signal"></span>
+          Orodje
+        </div>
+        <h1 className="text-3xl md:text-4xl font-sora font-semibold text-ink leading-tight mb-3">
+          Toplotna črpalka <span className="text-muted">ali</span> plinski kotel?
         </h1>
-        <p className="text-lg text-gray-600">
-          Primerjajte skupne stroške ogrevanja v Sloveniji. Prilagodite parametre
-          svojemu domu in izračunajte, katera rešitev se vam bolj splača.
+        <p className="text-sm text-muted max-w-xl leading-relaxed">
+          Primerjajte celotne stroške ogrevanja. Prilagodite parametre
+          svojemu domu in takoj vidite razliko. Podatki za Slovenijo 2026.
         </p>
       </div>
 
-      <div className="bg-white rounded-xl shadow-md p-6 md:p-8 border border-gray-100">
+      {/* ── Calculator tool ── */}
+      <div className="bg-white rounded-2xl shadow-sm border border-surface p-6 md:p-8">
         <KalkulatorOgrevanja />
       </div>
 
-      <div className="mt-10 space-y-6 text-sm text-gray-600 leading-relaxed">
-        <h2 className="text-xl font-bold text-gray-800">Kako deluje primerjava?</h2>
-
-        <div className="bg-blue-50 rounded-lg p-5 border border-blue-100">
-          <h3 className="font-semibold text-blue-800 mb-2">📝 Predpostavke</h3>
-          <ul className="space-y-2 list-disc list-inside">
-            <li>
-              <strong>Letna potreba po toploti:</strong> Izračunana na podlagi
-              povprečnih slovenskih vrednosti (~100 kWh/m² za dobro izolirano hišo,
-              do ~200 kWh/m² za slabo izolirano).
-            </li>
-            <li>
-              <strong>COP toplotne črpalke:</strong> 3,5 (povprečni letni izkoristek
-              za zrak-voda sistem v slovenskem podnebju).
-            </li>
-            <li>
-              <strong>Izkoristek plinskega kotla:</strong> 92% (kondenzacijski kotel).
-            </li>
-            <li>
-              <strong>Cene energentov:</strong> Povprečne slovenske cene v letu 2026.
-            </li>
-            <li>
-              <strong>Subvencije:</strong> Eko sklad do 2.500 € za zamenjavo
-              fosilnega vira s toplotno črpalko.
-            </li>
+      {/* ── Notes ── */}
+      <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-muted leading-relaxed">
+        <div className="bg-surface rounded-xl p-5">
+          <h3 className="font-sora font-semibold text-ink text-sm mb-2">
+            📐 Kako izračunamo?
+          </h3>
+          <ul className="space-y-1.5">
+            <li>— Letna potreba po toploti: slovensko povprečje glede na izolacijo in velikost</li>
+            <li>— COP toplotne črpalke: 3,5 (letno povprečje za Slovenijo)</li>
+            <li>— Izkoristek plinskega kotla: 92% (kondenzacijski)</li>
+            <li>— Cene: povprečne slovenske 2026 (SURS, distributerji)</li>
+            <li>— Subvencije: Eko sklad 2026, do 2.500 €</li>
           </ul>
         </div>
-
-        <div className="bg-yellow-50 rounded-lg p-5 border border-yellow-100">
-          <h3 className="font-semibold text-yellow-800 mb-2">⚠️ Pomembno</h3>
-          <p>
-            Ta kalkulator je informativne narave. Dejanski stroški so odvisni od
-            specifičnih pogojev vašega doma, lokacije, navad uporabe in dejanske
-            cene energentov. Priporočamo posvet s pooblaščenim energetskim
-            svetovalcem pred večjimi investicijami.
-          </p>
-        </div>
-
-        <div className="bg-green-50 rounded-lg p-5 border border-green-100">
-          <h3 className="font-semibold text-green-800 mb-2">💡 Nasveti za znižanje stroškov</h3>
-          <ul className="space-y-2 list-disc list-inside">
-            <li>Pred nakupom novega ogrevalnega sistema vedno preverite možnosti Eko sklad subvencij.</li>
-            <li>Kombinacija toplotne črpalke s sončno elektrarno lahko dodatno zniža stroške ogrevanja.</li>
-            <li>Izboljšanje izolacije lahko zmanjša potrebo po toploti za 30-50%.</li>
-            <li>Pametni termostati in regulacija lahko prihranijo 10-20% pri stroških ogrevanja.</li>
+        <div className="bg-surface rounded-xl p-5">
+          <h3 className="font-sora font-semibold text-ink text-sm mb-2">
+            ⚡ Nasveti
+          </h3>
+          <ul className="space-y-1.5">
+            <li>— Pred nakupom vedno preverite Eko sklad subvencije</li>
+            <li>— Kombinacija TČ + sončna elektrarna = največji prihranek</li>
+            <li>— Boljša izolacija zmanjša potrebo po toploti za 30–50%</li>
+            <li>— Pametna regulacija prihrani dodatnih 10–20%</li>
           </ul>
         </div>
       </div>
+
+      <p className="text-xs text-muted mt-6 text-center">
+        ⚠️ Ta kalkulator je informativen. Dejanski stroški so odvisni od
+        specifičnih pogojev. Priporočamo posvet s pooblaščenim svetovalcem.
+      </p>
     </div>
   );
 }

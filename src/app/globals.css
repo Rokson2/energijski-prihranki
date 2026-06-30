@@ -1,19 +1,74 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --foreground: #1a1a2e;
-  --background: #f8fafc;
+/* ── Design tokens via Tailwind v4 theme ── */
+@theme {
+  --color-paper: #f5f2eb;
+  --color-ink: #1e2b26;
+  --color-signal: #d4a843;
+  --color-muted: #7c8a81;
+  --color-surface: #e8e3da;
+  --color-ember: #b86b4a;
+  --color-pine: #2b5a4c;
+  --font-sora: 'Sora', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
 }
 
+/* ── Typography ── */
 body {
-  color: var(--foreground);
-  background: var(--background);
+  font-family: var(--font-outfit);
+  color: var(--color-ink);
+  background-color: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-sora);
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* ── Utilities ── */
+@utility text-balance {
+  text-wrap: balance;
+}
+
+/* ── Range slider styling ── */
+input[type='range']::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: 3px;
+  background: var(--color-surface);
+}
+input[type='range']::-webkit-slider-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: var(--color-pine);
+  margin-top: -7px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+input[type='range']:focus {
+  outline: none;
+}
+
+/* ── Selection ── */
+::selection {
+  background: var(--color-signal);
+  color: var(--color-ink);
+}
+
+/* ── Custom focus ring ── */
+*:focus-visible {
+  outline: 2px solid var(--color-signal);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
 }

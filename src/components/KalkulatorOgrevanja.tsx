@@ -31,17 +31,15 @@ export default function KalkulatorOgrevanja() {
     setRezultati([tcRez, plinRez]);
   };
 
-  const getBarWidth = (vrednost: number, max: number) => {
-    return max > 0 ? (vrednost / max) * 100 : 0;
-  };
-
   return (
-    <div className="space-y-6">
-      {/* Inputs */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div className="space-y-8">
+      {/* ── Input section ── */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
+        {/* House size */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Površina hiše (m²)
+          <label className="flex items-center justify-between text-sm font-medium text-ink mb-2">
+            <span>Površina hiše</span>
+            <span className="font-sora font-semibold text-pine text-lg">{povrsina} m²</span>
           </label>
           <input
             type="range"
@@ -50,19 +48,21 @@ export default function KalkulatorOgrevanja() {
             step="10"
             value={povrsina}
             onChange={(e) => setPovrsina(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-green-600"
+            className="w-full"
           />
-          <span className="text-lg font-semibold text-green-700">{povrsina} m²</span>
+          <div className="flex justify-between text-xs text-muted mt-1">
+            <span>50 m²</span>
+            <span>350 m²</span>
+          </div>
         </div>
 
+        {/* Insulation */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Izolacija objekta
-          </label>
+          <label className="block text-sm font-medium text-ink mb-2">Izolacija objekta</label>
           <select
             value={izolacija}
             onChange={(e) => setIzolacija(e.target.value)}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
+            className="w-full bg-paper border border-surface rounded-lg p-2.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-signal/50"
           >
             {stopnjeIzolacije.map((s) => (
               <option key={s.id} value={s.id}>
@@ -70,14 +70,18 @@ export default function KalkulatorOgrevanja() {
               </option>
             ))}
           </select>
-          <p className="text-xs text-gray-500 mt-1">
+          <p className="text-xs text-muted mt-1.5">
             {stopnjeIzolacije.find((s) => s.id === izolacija)?.opis}
           </p>
         </div>
 
+        {/* Heat pump investment */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Investicija v toplotno črpalko (€)
+          <label className="flex items-center justify-between text-sm font-medium text-ink mb-2">
+            <span>Investicija — toplotna črpalka</span>
+            <span className="font-sora font-semibold text-pine text-lg">
+              {investicijaTC.toLocaleString('sl-SI')} €
+            </span>
           </label>
           <input
             type="range"
@@ -86,14 +90,21 @@ export default function KalkulatorOgrevanja() {
             step="500"
             value={investicijaTC}
             onChange={(e) => setInvesticijaTC(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-blue-600"
+            className="w-full"
           />
-          <span className="text-lg font-semibold text-blue-700">{investicijaTC.toLocaleString('sl-SI')} €</span>
+          <div className="flex justify-between text-xs text-muted mt-1">
+            <span>5.000 €</span>
+            <span>15.000 €</span>
+          </div>
         </div>
 
+        {/* Gas boiler investment */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Investicija v plinski kotel (€)
+          <label className="flex items-center justify-between text-sm font-medium text-ink mb-2">
+            <span>Investicija — plinski kotel</span>
+            <span className="font-sora font-semibold text-ember text-lg">
+              {investicijaPlin.toLocaleString('sl-SI')} €
+            </span>
           </label>
           <input
             type="range"
@@ -102,44 +113,58 @@ export default function KalkulatorOgrevanja() {
             step="500"
             value={investicijaPlin}
             onChange={(e) => setInvesticijaPlin(Number(e.target.value))}
-            className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer accent-orange-600"
+            className="w-full"
           />
-          <span className="text-lg font-semibold text-orange-700">{investicijaPlin.toLocaleString('sl-SI')} €</span>
+          <div className="flex justify-between text-xs text-muted mt-1">
+            <span>2.000 €</span>
+            <span>8.000 €</span>
+          </div>
         </div>
 
+        {/* Electricity price */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Cena elektrike (€/kWh)
+          <label className="block text-sm font-medium text-ink mb-2">
+            Cena elektrike
           </label>
-          <input
-            type="number"
-            step="0.01"
-            value={cenaElektrike}
-            onChange={(e) => setCenaElektrike(Number(e.target.value))}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-          />
-          <p className="text-xs text-gray-500">Povprečna Slovenija: ~0,19 €/kWh</p>
+          <div className="flex items-center gap-3">
+            <input
+              type="number"
+              step="0.01"
+              value={cenaElektrike}
+              onChange={(e) => setCenaElektrike(Number(e.target.value))}
+              className="w-24 bg-paper border border-surface rounded-lg p-2.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-signal/50"
+            />
+            <span className="text-sm text-muted">€/kWh</span>
+          </div>
+          <p className="text-xs text-muted mt-1.5">Povprečje Slovenija 2026: ~0,19 €/kWh</p>
         </div>
 
+        {/* Gas price */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Cena zemeljskega plina (€/kWh)
+          <label className="block text-sm font-medium text-ink mb-2">
+            Cena zemeljskega plina
           </label>
-          <input
-            type="number"
-            step="0.01"
-            value={cenaPlina}
-            onChange={(e) => setCenaPlina(Number(e.target.value))}
-            className="w-full p-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500"
-          />
-          <p className="text-xs text-gray-500">Povprečna Slovenija: ~0,09 €/kWh</p>
+          <div className="flex items-center gap-3">
+            <input
+              type="number"
+              step="0.01"
+              value={cenaPlina}
+              onChange={(e) => setCenaPlina(Number(e.target.value))}
+              className="w-24 bg-paper border border-surface rounded-lg p-2.5 text-sm text-ink focus:outline-none focus:ring-2 focus:ring-signal/50"
+            />
+            <span className="text-sm text-muted">€/kWh</span>
+          </div>
+          <p className="text-xs text-muted mt-1.5">Povprečje Slovenija 2026: ~0,09 €/kWh</p>
         </div>
       </div>
 
-      {/* Subvencija */}
-      <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-        <label className="block text-sm font-medium text-green-800 mb-1">
-          Eko sklad subvencija za toplotno črpalko (€)
+      {/* ── Subsidy ── */}
+      <div className="bg-surface rounded-xl p-5">
+        <label className="flex items-center justify-between text-sm font-medium text-ink mb-2">
+          <span>Eko sklad subvencija</span>
+          <span className="font-sora font-semibold text-pine text-lg">
+            {subvencija.toLocaleString('sl-SI')} €
+          </span>
         </label>
         <input
           type="range"
@@ -148,87 +173,114 @@ export default function KalkulatorOgrevanja() {
           step="500"
           value={subvencija}
           onChange={(e) => setSubvencija(Number(e.target.value))}
-          className="w-full h-2 bg-green-200 rounded-lg appearance-none cursor-pointer accent-green-600"
+          className="w-full"
         />
-        <div className="flex justify-between text-sm text-green-700">
+        <div className="flex justify-between text-xs text-muted mt-1">
           <span>0 €</span>
-          <span className="font-semibold">{subvencija.toLocaleString('sl-SI')} €</span>
           <span>6.000 €</span>
         </div>
-        <p className="text-xs text-green-600 mt-1">
-          {subvencije.toplotna_crpalka_zamenjava_fosil.opis} (do {subvencije.toplotna_crpalka_zamenjava_fosil.max.toLocaleString('sl-SI')} €)
+        <p className="text-xs text-muted mt-2">
+          {subvencije.toplotna_crpalka_zamenjava_fosil.opis} (max{' '}
+          {subvencije.toplotna_crpalka_zamenjava_fosil.max.toLocaleString('sl-SI')} €)
         </p>
       </div>
 
+      {/* ── Calculate button ── */}
       <button
         onClick={izracunaj}
-        className="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-lg transition-colors shadow-md hover:shadow-lg"
+        className="w-full bg-pine text-white font-sora font-semibold py-3.5 px-6 rounded-xl text-sm hover:opacity-90 transition-opacity"
       >
         Izračunaj primerjavo
       </button>
 
-      {/* Results */}
+      {/* ── Results ── */}
       {rezultati && (
-        <div className="space-y-6">
-          <div className="bg-white rounded-xl shadow-lg p-6 border border-gray-100">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">Letna potreba po toploti</h3>
-            <p className="text-3xl font-bold text-green-600">
-              {potreba.toLocaleString('sl-SI')} <span className="text-lg font-normal text-gray-500">kWh/leto</span>
+        <div className="space-y-6 animate-[fadeIn_0.3s_ease]">
+          {/* Heat need */}
+          <div className="text-center py-4">
+            <p className="text-xs text-muted mb-1">Letna potreba po toploti</p>
+            <p className="text-3xl font-sora font-semibold text-ink">
+              {potreba.toLocaleString('sl-SI')}{' '}
+              <span className="text-sm font-normal text-muted">kWh/leto</span>
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {/* Two-column comparison */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {rezultati.map((r, i) => {
               const isHeatPump = i === 0;
-              const barColor = isHeatPump ? 'bg-blue-500' : 'bg-orange-500';
-              const bgColor = isHeatPump ? 'bg-blue-50 border-blue-200' : 'bg-orange-50 border-orange-200';
-              const textColor = isHeatPump ? 'text-blue-800' : 'text-orange-800';
+              const accent = isHeatPump ? 'text-pine' : 'text-ember';
+              const label = isHeatPump ? 'Toplotna črpalka' : 'Plinski kotel';
               const maxCost = Math.max(...rezultati.map((x) => x.letniStrosek));
 
               return (
-                <div key={r.ime} className={`rounded-xl border ${bgColor} p-5 shadow-sm`}>
-                  <h3 className={`font-bold text-lg ${textColor} mb-3`}>{r.ime}</h3>
+                <div
+                  key={r.ime}
+                  className={`rounded-xl border p-5 ${
+                    isHeatPump
+                      ? 'border-pine/20 bg-pine/[0.03]'
+                      : 'border-ember/20 bg-ember/[0.03]'
+                  }`}
+                >
+                  <h3 className={`font-sora font-semibold text-sm ${accent} mb-4`}>
+                    {label}
+                  </h3>
 
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-600">Investicija</span>
-                        <span className="font-semibold">{r.investicija.toLocaleString('sl-SI')} €</span>
+                      <div className="flex justify-between text-xs text-muted mb-1">
+                        <span>Investicija</span>
+                        <span className="font-semibold text-ink">
+                          {r.investicija.toLocaleString('sl-SI')} €
+                        </span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div className="w-full h-2 rounded-full bg-surface overflow-hidden">
                         <div
-                          className={`${barColor} h-3 rounded-full`}
-                          style={{ width: `${getBarWidth(r.investicija, Math.max(...rezultati.map((x) => x.investicija)))}%` }}
-                        ></div>
+                          className={`h-full rounded-full transition-all duration-500 ${
+                            isHeatPump ? 'bg-pine' : 'bg-ember'
+                          }`}
+                          style={{
+                            width: `${Math.min(
+                              (r.investicija / Math.max(...rezultati.map((x) => x.investicija))) * 100,
+                              100
+                            )}%`,
+                          }}
+                        />
                       </div>
                     </div>
 
                     <div>
-                      <div className="flex justify-between text-sm mb-1">
-                        <span className="text-gray-600">Letni strošek ogrevanja</span>
-                        <span className="font-bold text-lg">{r.letniStrosek.toLocaleString('sl-SI')} €</span>
+                      <div className="flex justify-between text-xs text-muted mb-1">
+                        <span>Letni strošek</span>
+                        <span className={`font-sora font-semibold text-lg ${accent}`}>
+                          {r.letniStrosek.toLocaleString('sl-SI')} €
+                        </span>
                       </div>
-                      <div className="w-full bg-gray-200 rounded-full h-4">
+                      <div className="w-full h-2.5 rounded-full bg-surface overflow-hidden">
                         <div
-                          className={`${barColor} h-4 rounded-full transition-all duration-500`}
-                          style={{ width: `${getBarWidth(r.letniStrosek, maxCost)}%` }}
-                        ></div>
+                          className={`h-full rounded-full transition-all duration-500 ${
+                            isHeatPump ? 'bg-pine' : 'bg-ember'
+                          }`}
+                          style={{
+                            width: `${(r.letniStrosek / maxCost) * 100}%`,
+                          }}
+                        />
                       </div>
                     </div>
 
-                    <div className="flex justify-between text-sm border-t pt-2">
-                      <span className="text-gray-600">10-letni strošek</span>
-                      <span className="font-semibold">{r.desetLetSkupaj.toLocaleString('sl-SI')} €</span>
-                    </div>
-
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">Življenjska doba</span>
-                      <span className="font-semibold">{r.zivljenjskaDoba} let</span>
-                    </div>
-
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-600">CO₂ izpust (letno)</span>
-                      <span className="font-semibold">{r.letniCO2.toLocaleString('sl-SI')} kg</span>
+                    <div className="grid grid-cols-2 gap-3 pt-2 text-xs text-muted border-t border-surface">
+                      <div>
+                        <span className="block">10-letni strošek</span>
+                        <span className="font-semibold text-ink">
+                          {r.desetLetSkupaj.toLocaleString('sl-SI')} €
+                        </span>
+                      </div>
+                      <div>
+                        <span className="block">CO₂ / leto</span>
+                        <span className="font-semibold text-ink">
+                          {r.letniCO2.toLocaleString('sl-SI')} kg
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -236,60 +288,49 @@ export default function KalkulatorOgrevanja() {
             })}
           </div>
 
-          {/* Payback analysis */}
-          <div className="bg-gradient-to-r from-green-50 to-blue-50 rounded-xl p-6 border border-green-200 shadow-md">
-            <h3 className="text-lg font-bold text-gray-800 mb-3">Analiza povračila investicije</h3>
-            
-            {(() => {
-              const tc = rezultati[0];
-              const plin = rezultati[1];
-              const letniPrihranek = plin.letniStrosek - tc.letniStrosek;
-              const razlikaVInvesticiji = tc.investicija - plin.investicija;
-              const povraciloLet = razlikaVInvesticiji > 0 && letniPrihranek > 0
+          {/* ── Payback analysis ── */}
+          {(() => {
+            const tc = rezultati[0];
+            const plin = rezultati[1];
+            const letniPrihranek = plin.letniStrosek - tc.letniStrosek;
+            const razlikaVInvesticiji = tc.investicija - plin.investicija;
+            const povraciloLet =
+              razlikaVInvesticiji > 0 && letniPrihranek > 0
                 ? (razlikaVInvesticiji / letniPrihranek).toFixed(1)
                 : null;
 
-              return (
-                <div className="space-y-3">
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-700">Letni prihranek s toplotno črpalko:</span>
-                    <span className="text-2xl font-bold text-green-600">
-                      {letniPrihranek > 0 ? `~${letniPrihranek.toLocaleString('sl-SI')} €` : 'Primerljivo'}
-                    </span>
+            return (
+              <div className="bg-pine/5 border border-pine/15 rounded-xl p-6">
+                <h3 className="font-sora font-semibold text-sm text-ink mb-4">
+                  Analiza povračila
+                </h3>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                  <div className="bg-white rounded-lg p-4 text-center">
+                    <p className="text-xs text-muted mb-1">Letni prihranek s TČ</p>
+                    <p className="text-2xl font-sora font-semibold text-pine">
+                      {letniPrihranek > 0
+                        ? `~${letniPrihranek.toLocaleString('sl-SI')} €`
+                        : 'Primerljivo'}
+                    </p>
                   </div>
                   {povraciloLet && (
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-700">Čas povračila razlike v investiciji:</span>
-                      <span className="text-xl font-bold text-blue-600">~{povraciloLet} let</span>
+                    <div className="bg-white rounded-lg p-4 text-center">
+                      <p className="text-xs text-muted mb-1">Povračilo razlike</p>
+                      <p className="text-2xl font-sora font-semibold text-ink">
+                        ~{povraciloLet} let
+                      </p>
                     </div>
                   )}
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-700">Prihranek v 10 letih (skupaj):</span>
-                    <span className="text-xl font-bold text-green-700">
+                  <div className="bg-white rounded-lg p-4 text-center">
+                    <p className="text-xs text-muted mb-1">Prihranek v 10 letih</p>
+                    <p className="text-2xl font-sora font-semibold text-pine">
                       ~{(plin.desetLetSkupaj - tc.desetLetSkupaj).toLocaleString('sl-SI')} €
-                    </span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-gray-700">Prihranek v življenjski dobi (18 let):</span>
-                    <span className="text-xl font-bold text-green-800">
-                      ~{(plin.skupajVZivljenjskiDobi - tc.skupajVZivljenjskiDobi).toLocaleString('sl-SI')} €
-                    </span>
+                    </p>
                   </div>
                 </div>
-              );
-            })()}
-          </div>
-
-          {/* CTA */}
-          <div className="bg-gray-50 rounded-xl p-5 border border-gray-200 text-center">
-            <p className="text-gray-600 text-sm mb-3">
-              📌 Ta izračun je informativen. Dejanski stroški so odvisni od specifičnih pogojev vašega doma.
-              Priporočamo posvet s strokovnjakom in preveritev aktualnih subvencij na <strong>Eko sklad</strong>.
-            </p>
-            <p className="text-xs text-gray-400">
-              * Cene energentov so povprečne za Slovenijo v letu 2026. Subvencije so okvirne.
-            </p>
-          </div>
+              </div>
+            );
+          })()}
         </div>
       )}
     </div>
