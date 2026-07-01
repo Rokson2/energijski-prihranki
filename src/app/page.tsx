@@ -95,7 +95,7 @@ export default function Home() {
             href="/kalkulatorji/toplotna-crpalka-vs-plinski-kotel"
             className="bg-white rounded-2xl border border-surface p-6 hover-lift card-glow group"
           >
-            <span className="text-2xl mb-3 block">🖩</span>
+            <span className="text-2xl mb-3 block">📊</span>
             <h3 className="font-sora font-semibold text-ink mb-1.5 group-hover:text-pine transition-colors">
               Kalkulator ogrevanja
             </h3>
