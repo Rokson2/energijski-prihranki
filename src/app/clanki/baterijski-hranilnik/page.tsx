@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Baterijski hranilnik — cene, subvencije in prednosti 2026 | Energijski Prihranki',
@@ -23,6 +24,18 @@ export default function BaterijskiHranilnikPage() {
           Po koncu net meteringa je baterijski hranilnik ključen za dobro donosnost
           sončne elektrarne. Kako deluje, koliko stane in kakšne subvencije so na voljo.
         </p>
+      </div>
+
+      {/* ── Hero image ── */}
+      <div className="mb-10 relative h-56 md:h-72 rounded-2xl overflow-hidden">
+        <Image
+          src="/images/battery-system.webp"
+          alt="Baterijski sistem za shranjevanje energije"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-pine/60 to-transparent" />
       </div>
 
       <div className="space-y-8">

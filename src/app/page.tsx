@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
   return (
@@ -55,6 +56,24 @@ export default function Home() {
             <p className="text-2xl md:text-3xl font-sora font-semibold text-pine">675 €/kW</p>
             <p className="text-xs text-muted mt-1">subvencije Borzen za SE+baterijo</p>
           </div>
+        </div>
+      </section>
+
+      {/* ── Hero image strip ── */}
+      <section className="mb-16 relative h-64 md:h-80 rounded-2xl overflow-hidden">
+        <Image
+          src="/images/solar-hero.webp"
+          alt="Sončna energija za slovenski dom"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-pine/70 via-pine/30 to-transparent" />
+        <div className="absolute bottom-6 left-6 text-white">
+          <p className="text-xs font-medium opacity-80">Sončna energija</p>
+          <p className="text-lg md:text-xl font-sora font-semibold">
+            Prihranite do 1.446 € letno
+          </p>
         </div>
       </section>
 

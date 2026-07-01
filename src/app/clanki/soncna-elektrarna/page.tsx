@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Sončna elektrarna — cene, subvencije in donosnost 2026 | Energijski Prihranki',
@@ -41,6 +42,18 @@ export default function SoncnaElektrarnaPage() {
       </div>
 
       {/* ── Content sections ── */}
+      {/* ── Hero image ── */}
+      <div className="mb-10 relative h-56 md:h-72 rounded-2xl overflow-hidden">
+        <Image
+          src="/images/solar-panels.webp"
+          alt="Sončni paneli na strehi hiše"
+          fill
+          className="object-cover"
+          priority
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-pine/60 to-transparent" />
+      </div>
+
       <div className="space-y-8">
         {/* How solar works */}
         <div className="bg-white rounded-2xl border border-surface p-6 md:p-8">
