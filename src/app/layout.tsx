@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Sora, Outfit } from 'next/font/google';
 import './globals.css';
+import CursorGlow from '@/components/CursorGlow';
 
 const sora = Sora({
   subsets: ['latin'],
@@ -29,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="sl" className={`${sora.variable} ${outfit.variable}`}>
       <body className="font-outfit antialiased">
+        <CursorGlow />
         <header className="border-b border-surface sticky top-0 bg-paper/90 backdrop-blur-md z-50">
           <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" className="flex items-center gap-3 group">
